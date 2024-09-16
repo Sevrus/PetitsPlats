@@ -1740,7 +1740,7 @@ const recipes = [
     {
         "id": 50,
         "image": "Recette50.jpg",
-        "name": "Frangipane",
+        "name": "Frangipane",             
         "servings": 2,
         "ingredients": [
             {
