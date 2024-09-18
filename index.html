@@ -5,13 +5,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap"
+          rel="stylesheet">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/layout.css">
 </head>
 <body>
 <header>
-    <img src="./assets/logos/logo.png" alt="Le logo des petits plats">
-    <section>
-        <h1>CHERCHEZ PARMI PLUS DE 1500 RECETTES <span>DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</span></h1>
+    <img src="./assets/logos/logo.png" alt="Le logo des petits plats" class="header-logo">
+    <section class="hero-section">
+        <h1>CHERCHEZ PARMI PLUS DE 1500 RECETTES<span>DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</span></h1>
         <div>
             <label for="global-search" class="sr-only">Rechercher</label>
             <div>
@@ -27,67 +33,78 @@
     </section>
 </header>
 <section class="search-bar">
-    <div class="dropdown-section">
-        <div class="dropdown">
-            <div class="dropdown-header">
-                <span class="dropdown-title">Ingrédients</span>
-                <img src="" alt="">
+    <div class="dropdown-container">
+        <div class="dropdown-section">
+            <div class="dropdown">
+                <div class="dropdown-header">
+                    <span class="dropdown-title">Ingrédients</span>
+                    <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
+                </div>
+                <div class="dropdown-content">
+                    <div class="dropdown-search-container">
+                        <label for="search-ingredients" class="sr-only"></label>
+                        <input type="text" name="search-ingredients" id="search-ingredients" class="dropdown-search">
+                        <img src="" alt="">
+                    </div>
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item">Jus de citron</li>
+                        <li class="dropdown-item">Glaçons</li>
+                        <li class="dropdown-item">Tomate</li>
+                        <li class="dropdown-item">Poulet</li>
+                    </ul>
+                </div>
             </div>
-            <div class="dropdown-search-container">
-                <label for="search-ingredients" class="sr-only"></label>
-                <input type="text" name="search-ingredients" id="search-ingredients" class="dropdown-search">
-                <img src="" alt="">
-            </div>
-            <ul class="dropdown-list">
-                <li class="dropdown-item">Jus de citron</li>
-                <li class="dropdown-item">Glaçons</li>
-                <li class="dropdown-item">Tomate</li>
-                <li class="dropdown-item">Poulet</li>
-            </ul>
+            <div class="dropdown-tags"></div>
         </div>
-        <div class="dropdown-tags"></div>
-    </div>
-    <div class="dropdown-section">
-        <div class="dropdown">
-            <div class="dropdown-header">
-                <span class="dropdown-title">Appareils</span>
-                <img src="" alt="">
+        <div class="dropdown-section">
+            <div class="dropdown open">
+                <div class="dropdown-header">
+                    <span class="dropdown-title">Appareils</span>
+                    <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
+                </div>
+                <div class="dropdown-content">
+                    <div class="dropdown-search-container">
+                        <label for="search-appliance" class="sr-only"></label>
+                        <input type="text" name="search-appliance" id="search-appliance" class="dropdown-search">
+                        <img src="" alt="">
+                    </div>
+                    <ul class="dropdown-selections">
+                        <li class="dropdown-selection"><span>Tomates</span><img src="assets/icons/round-cross.svg" alt=""></li>
+                    </ul>
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item">Jus de citron</li>
+                        <li class="dropdown-item">Glaçons</li>
+                        <li class="dropdown-item">Tomate</li>
+                        <li class="dropdown-item">Poulet</li>
+                    </ul>
+                </div>
             </div>
-            <div class="dropdown-search-container">
-                <label for="search-appliance" class="sr-only"></label>
-                <input type="text" name="search-appliance" id="search-appliance" class="dropdown-search">
-                <img src="" alt="">
-            </div>
-            <ul class="dropdown-list">
-                <li class="dropdown-item">Jus de citron</li>
-                <li class="dropdown-item">Glaçons</li>
-                <li class="dropdown-item">Tomate</li>
-                <li class="dropdown-item">Poulet</li>
-            </ul>
+            <div class="dropdown-tags"></div>
         </div>
-        <div class="dropdown-tags"></div>
-    </div>
-    <div class="dropdown-section">
-        <div class="dropdown">
-            <div class="dropdown-header">
-                <span class="dropdown-title">Ustensiles</span>
-                <img src="" alt="">
+        <div class="dropdown-section">
+            <div class="dropdown">
+                <div class="dropdown-header">
+                    <span class="dropdown-title">Ustensiles</span>
+                    <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
+                </div>
+                <div class="dropdown-content">
+                    <div class="dropdown-search-container">
+                        <label for="search-ustensils" class="sr-only"></label>
+                        <input type="text" name="search-ustensils" id="search-ustensils" class="dropdown-search">
+                        <img src="" alt="">
+                    </div>
+                    <ul class="dropdown-list">
+                        <li class="dropdown-item">Jus de citron</li>
+                        <li class="dropdown-item">Glaçons</li>
+                        <li class="dropdown-item">Tomate</li>
+                        <li class="dropdown-item">Poulet</li>
+                    </ul>
+                </div>
             </div>
-            <div class="dropdown-search-container">
-                <label for="search-ustensils" class="sr-only"></label>
-                <input type="text" name="search-ustensils" id="search-ustensils" class="dropdown-search">
-                <img src="" alt="">
-            </div>
-            <ul class="dropdown-list">
-                <li class="dropdown-item">Jus de citron</li>
-                <li class="dropdown-item">Glaçons</li>
-                <li class="dropdown-item">Tomate</li>
-                <li class="dropdown-item">Poulet</li>
-            </ul>
+            <div class="dropdown-tags"></div>
         </div>
-        <div class="dropdown-tags"></div>
     </div>
-    <p></p>
+    <p><span id="recipe-count">1500</span> Recettes</p>
 </section>
 <main>
     <section class="recipe-list">
