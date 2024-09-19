@@ -20,92 +20,91 @@
         <h1>CHERCHEZ PARMI PLUS DE 1500 RECETTES<span>DU QUOTIDIEN,SIMPLES ET DÉLICIEUSES</span></h1>
         <div>
             <label for="global-search" class="sr-only">Rechercher</label>
-            <div>
+            <div class="global-search-container">
                 <input type="text" name="global-search" id="global-search"
                        placeholder="Rechercher une recette, un ingrédient,...">
-                <img src="" alt="">
-                <div>
-                    <img src="" alt="">
+                <img src="./assets/icons/cross.svg" alt="Une croix" class="global-search-cross">
+                <div class="wen-container">
+                    <img src="./assets/icons/wen.svg" alt="Une loupe">
                 </div>
-
             </div>
         </div>
     </section>
 </header>
 <section class="search-bar">
     <div class="dropdown-container">
-        <div class="dropdown-section">
-            <div class="dropdown">
-                <div class="dropdown-header">
-                    <span class="dropdown-title">Ingrédients</span>
-                    <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
-                </div>
-                <div class="dropdown-content">
-                    <div class="dropdown-search-container">
-                        <label for="search-ingredients" class="sr-only"></label>
-                        <input type="text" name="search-ingredients" id="search-ingredients" class="dropdown-search">
-                        <img src="" alt="">
-                    </div>
-                    <ul class="dropdown-list">
-                        <li class="dropdown-item">Jus de citron</li>
-                        <li class="dropdown-item">Glaçons</li>
-                        <li class="dropdown-item">Tomate</li>
-                        <li class="dropdown-item">Poulet</li>
-                    </ul>
-                </div>
+        <div class="dropdown">
+            <div class="dropdown-header">
+                <span class="dropdown-title">Ingrédients</span>
+                <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
             </div>
-            <div class="dropdown-tags"></div>
+            <div class="dropdown-content">
+                <div class="dropdown-search-container">
+                    <label for="search-ingredients" class="sr-only"></label>
+                    <input type="text" name="search-ingredients" id="search-ingredients" class="dropdown-search">
+                    <img src="./assets/icons/cross.svg" alt="Une croix" class="dropdown-search-cross">
+                    <img src="./assets/icons/wen.svg" alt="Une loupe" class="dropdown-search-wen">
+                </div>
+                <ul class="dropdown-list">
+                    <li class="dropdown-item">Jus de citron</li>
+                    <li class="dropdown-item">Glaçons</li>
+                    <li class="dropdown-item">Tomate</li>
+                    <li class="dropdown-item">Poulet</li>
+                </ul>
+            </div>
         </div>
-        <div class="dropdown-section">
-            <div class="dropdown open">
-                <div class="dropdown-header">
-                    <span class="dropdown-title">Appareils</span>
-                    <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
-                </div>
-                <div class="dropdown-content">
-                    <div class="dropdown-search-container">
-                        <label for="search-appliance" class="sr-only"></label>
-                        <input type="text" name="search-appliance" id="search-appliance" class="dropdown-search">
-                        <img src="" alt="">
-                    </div>
-                    <ul class="dropdown-selections">
-                        <li class="dropdown-selection"><span>Tomates</span><img src="assets/icons/round-cross.svg" alt=""></li>
-                    </ul>
-                    <ul class="dropdown-list">
-                        <li class="dropdown-item">Jus de citron</li>
-                        <li class="dropdown-item">Glaçons</li>
-                        <li class="dropdown-item">Tomate</li>
-                        <li class="dropdown-item">Poulet</li>
-                    </ul>
-                </div>
+        <div class="dropdown open">
+            <div class="dropdown-header">
+                <span class="dropdown-title">Appareils</span>
+                <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
             </div>
-            <div class="dropdown-tags"></div>
+            <div class="dropdown-content">
+                <div class="dropdown-search-container">
+                    <label for="search-appliance" class="sr-only"></label>
+                    <input type="text" name="search-appliance" id="search-appliance" class="dropdown-search">
+                    <img src="./assets/icons/cross.svg" alt="Une croix" class="dropdown-search-cross">
+                    <img src="./assets/icons/wen.svg" alt="Une loupe" class="dropdown-search-wen">
+                </div>
+                <ul class="dropdown-selections">
+                    <li class="dropdown-selection"><span>Tomates</span><img src="assets/icons/round-cross.svg" alt="">
+                    </li>
+                </ul>
+                <ul class="dropdown-list">
+                    <li class="dropdown-item">Jus de citron</li>
+                    <li class="dropdown-item">Glaçons</li>
+                    <li class="dropdown-item">Tomate</li>
+                    <li class="dropdown-item">Poulet</li>
+                </ul>
+            </div>
         </div>
-        <div class="dropdown-section">
-            <div class="dropdown">
-                <div class="dropdown-header">
-                    <span class="dropdown-title">Ustensiles</span>
-                    <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
-                </div>
-                <div class="dropdown-content">
-                    <div class="dropdown-search-container">
-                        <label for="search-ustensils" class="sr-only"></label>
-                        <input type="text" name="search-ustensils" id="search-ustensils" class="dropdown-search">
-                        <img src="" alt="">
-                    </div>
-                    <ul class="dropdown-list">
-                        <li class="dropdown-item">Jus de citron</li>
-                        <li class="dropdown-item">Glaçons</li>
-                        <li class="dropdown-item">Tomate</li>
-                        <li class="dropdown-item">Poulet</li>
-                    </ul>
-                </div>
+        <div class="dropdown">
+            <div class="dropdown-header">
+                <span class="dropdown-title">Ustensiles</span>
+                <img src="./assets/icons/arrow.svg" alt="Flèche vers le bas">
             </div>
-            <div class="dropdown-tags"></div>
+            <div class="dropdown-content">
+                <div class="dropdown-search-container">
+                    <label for="search-utensils" class="sr-only"></label>
+                    <input type="text" name="search-utensils" id="search-utensils" class="dropdown-search">
+                    <img src="./assets/icons/cross.svg" alt="Une croix" class="dropdown-search-cross">
+                    <img src="./assets/icons/wen.svg" alt="Une loupe" class="dropdown-search-wen">
+                </div>
+                <ul class="dropdown-list">
+                    <li class="dropdown-item">Jus de citron</li>
+                    <li class="dropdown-item">Glaçons</li>
+                    <li class="dropdown-item">Tomate</li>
+                    <li class="dropdown-item">Poulet</li>
+                </ul>
+            </div>
         </div>
     </div>
     <p><span id="recipe-count">1500</span> Recettes</p>
 </section>
+<div class="dropdown-tags">
+    <ul class="dropdown-tag-ingredients"></ul>
+    <ul class="dropdown-tag-appliance"></ul>
+    <ul class="dropdown-tag-utensils"></ul>
+</div>
 <main>
     <section class="recipe-list">
         <article class="recipe-card">
