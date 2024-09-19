@@ -73,6 +73,7 @@ header {
 }
 
 .global-search-cross {
+    display: none;
     position: absolute;
     top: 50%;
     right: 85px;
@@ -106,7 +107,6 @@ header {
 .search-bar {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 21px 102px 55px;
     background-color: var(--main-bg-color);
 }
@@ -196,6 +196,7 @@ header {
 }
 
 .dropdown-search-cross {
+    display: none;
     height: 6px;
     right: calc((100% - 163px) / 2 + 35px);
     top: 15px;
@@ -234,14 +235,116 @@ header {
     overflow-y: auto;
     padding-left: 16px;
     gap: 13px;
+    padding-bottom: 10px;
+}
+
+.dropdown-tags {
+    margin-top: 21px;
+}
+
+.dropdown-tags li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--primary-color);
+    padding: 17px 21px 17px 16px;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.dropdown-tags li:last-child {
+    margin-bottom: 0;
+}
+
+.dropdown-tags li img {
+    height: 10px;
+    filter: brightness(0%);
+    cursor: pointer;
 }
 
 .search-bar p {
     font-family: "Anton", sans-serif;
     font-size: 1.3rem;
+    margin-top: 17px;
 }
 
 /*MAIN*/
 main {
     background-color: var(--main-bg-color);
+    padding-bottom: 50px;
+}
+
+.recipe-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 48px;
+    row-gap: 66px;
+    margin: 0 101px;
+}
+
+.recipe-card {
+    position: relative;
+    width: 380px;
+    background-color: #FFF;
+    border-radius: 21px;
+    box-shadow: 0 4px 34px 30px rgba(0, 0, 0, 4%);
+}
+
+.recipe-time {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 5px 15px;
+    background-color: var(--primary-color);
+    border-radius: 14px;
+}
+.recipe-img {
+    height: 253px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-top-right-radius: 14px;
+    border-top-left-radius: 14px;
+}
+
+.recipe-container {
+    padding: 32px 25px 61px;
+}
+
+.recipe-title {
+    font-family: "Anton", sans-serif;
+    font-size: 1.125rem;
+    font-weight: normal;
+    margin-bottom: 29px;
+}
+
+.recipe-container h3 {
+    font-size: .75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.recipe-container p {
+    font-size: .875rem;
+    margin-bottom: 32px;
+}
+
+.ingredient-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 21px;
+}
+
+.ingredient-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: .875rem;
+    font-weight: 500;
+}
+
+.quantity {
+    color: var(--secondary-color);
 }
