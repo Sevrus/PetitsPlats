@@ -1,6 +1,9 @@
 // Recherche avec les méthodes modernes (filter, some, includes)
+import {fetchData} from "../services/api.js";
+import {recipes} from "../data/recipes.json";
+
 const searchRecipes = (recipes, searchTerm) => {
-    if (searchTerm.length < 3) return []; // Lancer la recherche à partir de 3 caractères
+    if (searchTerm.length < 3) return [recipes]; // Lancer la recherche à partir de 3 caractères
 
     // Filtrer les recettes en fonction du titre, description, ou ingrédients
     return recipes.filter(recipe => {
@@ -15,6 +18,9 @@ const searchRecipes = (recipes, searchTerm) => {
         return inTitle || inDescription || inIngredients;
     });
 };
+
+// const results = searchRecipes(fetchData("./scripts/data/recipes.json"), "coco");
+// console.log(results);
 
 // Recherche avec des boucles traditionnelles (for, if)
 const searchRecipesWithLoops = (recipes, searchTerm) => {
@@ -56,3 +62,8 @@ const searchRecipesWithLoops = (recipes, searchTerm) => {
 
     return filteredRecipes;
 };
+
+// const resultsWithLoops = searchRecipesWithLoops(fetchData("./scripts/data/recipes.json"), "coco");
+// console.log(resultsWithLoops);
+
+fetchData(recipes).then((recipes) => console.log(recipes));
