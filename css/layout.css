@@ -307,15 +307,15 @@ main {
     border-top-left-radius: 14px;
 }
 
-.recipe-container {
-    padding: 32px 25px 61px;
-}
-
 .recipe-title {
     font-family: "Anton", sans-serif;
     font-size: 1.125rem;
     font-weight: normal;
-    margin-bottom: 29px;
+    padding: 32px 25px 29px;
+}
+
+.recipe-container {
+    padding: 0 25px 61px;
 }
 
 .recipe-container h3 {

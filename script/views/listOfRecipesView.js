@@ -10,11 +10,11 @@ const generateRecipeCards = (recipes) => {
 
       const recipeTime = document.createElement("span");
       recipeTime.classList.add("recipe-time");
-      recipeTime.textContent = recipe.time;
+      recipeTime.textContent = `${recipe["time"]}min`;
 
       const recipeImage = document.createElement("img");
       recipeImage.classList.add("recipe-img");
-      recipeImage.src = `./assets/images/recipes/${recipe.image}`;
+      recipeImage.src = `./assets/images/recipes/${recipe["image"]}`;
       recipeImage.alt = recipe.name;
 
       const recipeContainer = document.createElement("div");
@@ -22,26 +22,28 @@ const generateRecipeCards = (recipes) => {
 
       const recipeTitle = document.createElement("h2");
       recipeTitle.classList.add("recipe-title");
-      recipeTitle.textContent = recipe.name;
+      recipeTitle.textContent = recipe["name"];
 
       const recipeDescriptionTitle = document.createElement('h3');
       recipeDescriptionTitle.textContent = 'Recette';
 
       const recipeDescription = document.createElement('p');
-      recipeDescription.textContent = recipe.description;
+      recipeDescription.textContent = recipe["description"];
 
       const ingredientsTitle = document.createElement('h3');
       ingredientsTitle.textContent = 'Ingrédients';
 
       const ingredientsList = document.createElement('ul');
+      ingredientsList.classList.add("ingredient-list");
 
-      recipe.ingredients.forEach((item) => {
+      recipe["ingredients"].forEach((item) => {
           const ingredientItem = document.createElement('li');
           const ingredientText = document.createElement('span');
+          ingredientText.classList.add('quantity');
 
-          ingredientItem.textContent = item.ingredient;
-          if (item.quantity) {
-              ingredientText.textContent = ` : ${item.quantity} ${item.unit || ''}`;
+          ingredientItem.textContent = item["ingredient"];
+          if (item["quantity"]) {
+              ingredientText.textContent = `${item["quantity"]}${item["unit"] || ''}`;
               ingredientItem.appendChild(ingredientText);
           }
 
@@ -50,6 +52,7 @@ const generateRecipeCards = (recipes) => {
 
       recipeCard.appendChild(recipeTime);
       recipeCard.appendChild(recipeImage);
+      recipeCard.appendChild(recipeTitle);
       recipeCard.appendChild(recipeContainer);
       recipeContainer.appendChild(recipeDescriptionTitle);
       recipeContainer.appendChild(recipeDescription);
