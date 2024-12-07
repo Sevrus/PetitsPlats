@@ -34,7 +34,7 @@
 </header>
 <section class="search-bar">
     <div class="dropdown-container">
-        <div class="dropdown-section">
+        <div class="dropdown-section" data-category="ingredients">
             <div class="dropdown">
                 <div class="dropdown-header">
                     <span class="dropdown-title">Ingrédients</span>
@@ -48,19 +48,13 @@
                         <img src="./assets/icons/wen.svg" alt="Une loupe" class="dropdown-search-wen">
                     </div>
                     <ul class="dropdown-list">
-                        <li class="dropdown-item">Jus de citron</li>
-                        <li class="dropdown-item">Glaçons</li>
-                        <li class="dropdown-item">Tomate</li>
-                        <li class="dropdown-item">Poulet</li>
                     </ul>
                 </div>
             </div>
             <ul class="dropdown-tags">
-                <li>Oignons de fort<img src="./assets/icons/cross.svg" alt="Une croix"></li>
-                <li>Poireaux<img src="./assets/icons/cross.svg" alt="Une croix"></li>
             </ul>
         </div>
-        <div class="dropdown-section">
+        <div class="dropdown-section" data-category="appliances">
             <div class="dropdown">
                 <div class="dropdown-header">
                     <span class="dropdown-title">Appareils</span>
@@ -74,25 +68,15 @@
                         <img src="./assets/icons/wen.svg" alt="Une loupe" class="dropdown-search-wen">
                     </div>
                     <ul class="dropdown-selections">
-                        <li class="dropdown-selection">
-                            <span>Tomates</span>
-                            <img src="assets/icons/round-cross.svg" alt="">
-                        </li>
                     </ul>
                     <ul class="dropdown-list">
-                        <li class="dropdown-item">Jus de citron</li>
-                        <li class="dropdown-item">Glaçons</li>
-                        <li class="dropdown-item">Tomate</li>
-                        <li class="dropdown-item">Poulet</li>
                     </ul>
                 </div>
             </div>
             <ul class="dropdown-tags">
-                <li>Oignons de fort<img src="./assets/icons/cross.svg" alt="Une croix"></li>
-                <li>Poireaux<img src="./assets/icons/cross.svg" alt="Une croix"></li>
             </ul>
         </div>
-        <div class="dropdown-section">
+        <div class="dropdown-section" data-category="utensils">
             <div class="dropdown">
                 <div class="dropdown-header">
                     <span class="dropdown-title">Ustensiles</span>
@@ -106,16 +90,10 @@
                         <img src="./assets/icons/wen.svg" alt="Une loupe" class="dropdown-search-wen">
                     </div>
                     <ul class="dropdown-list">
-                        <li class="dropdown-item">Jus de citron</li>
-                        <li class="dropdown-item">Glaçons</li>
-                        <li class="dropdown-item">Tomate</li>
-                        <li class="dropdown-item">Poulet</li>
                     </ul>
                 </div>
             </div>
             <ul class="dropdown-tags">
-                <li>Oignons de fort<img src="./assets/icons/cross.svg" alt="Une croix"></li>
-                <li>Poireaux<img src="./assets/icons/cross.svg" alt="Une croix"></li>
             </ul>
         </div>
     </div>
@@ -124,8 +102,8 @@
 <main>
     <section class="recipe-list"></section>
 </main>
-<script src="./script/main.js" type="module"></script>
-<script src="./script/views/listOfRecipesView.js" type="module"></script>
-<script src="./script/prototypes/searchAlgorithms.js" type="module"></script>
+<script src="scripts/main.js" type="module"></script>
+<script src="scripts/views/listOfRecipesView.js" type="module"></script>
+<script src="scripts/prototypes/searchAlgorithms.js" type="module"></script>
 </body>
 </html>

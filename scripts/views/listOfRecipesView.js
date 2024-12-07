@@ -1,8 +1,10 @@
-import {fetchData} from "../services/api.js";
-
-const generateRecipeCards = (recipes) => {
+export const generateRecipeCards = (recipes) => {
   const container = document.querySelector(".recipe-list");
+  const recipeCountElement = document.getElementById("recipe-count");
+
   container.innerHTML = '';
+
+  recipeCountElement.textContent = recipes.length;
 
   recipes.forEach((recipe) => {
       const recipeCard = document.createElement("article");
@@ -61,7 +63,3 @@ const generateRecipeCards = (recipes) => {
       container.appendChild(recipeCard);
   });
 }
-
-fetchData("./script/data/recipes.json").then((recipes) => {
-    generateRecipeCards(recipes);
-});
