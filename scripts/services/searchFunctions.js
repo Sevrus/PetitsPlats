@@ -1,15 +1,37 @@
 export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, selectedAppliances, selectedUtensils) => {
+
+    console.log("Recipes passed to filterRecipesByAdvancedSearch:", recipes);
+    console.log("Is recipes an array?", Array.isArray(recipes));
+
+
+
+    recipes.forEach((recipe, index) => {
+        console.log(`Recipe ${index + 1}:`, recipe);
+        console.log(`Recipe ${index + 1} keys:`, Object.keys(recipe));
+        console.log("Ingredients:", recipe["ingredients"]);
+        console.log("Appliance:", recipe["appliance"]);
+        console.log("Utensils:", recipe["ustensils"]);
+    });
+
+
     return recipes.filter(recipe => {
+
+        const ingredients = recipe["ingredients"] || [];
+        const appliance = recipe["appliance"] || '';
+        const utensils = recipe["ustensils"] || [];
+
+        console.log(ingredients, utensils, appliance);
+
         const ingredientMatch = selectedIngredients.every(tag =>
-            recipe["ingredients"].some(ingredient => ingredient["ingredient"].toLowerCase() === tag.toLowerCase())
+            ingredients.some(ingredient => ingredient["ingredient"]?.toLowerCase() === tag.toLowerCase())
         );
 
         const applianceMatch = selectedAppliances.every(tag =>
-            recipe["appliance"].toLowerCase() === tag.toLowerCase()
+            appliance.toLowerCase() === tag.toLowerCase()
         );
 
         const utensilMatch = selectedUtensils.every(tag =>
-            recipe["ustensils"].some(utensil => utensil.toLowerCase() === tag.toLowerCase())
+            utensils.some(utensil => utensil.toLowerCase() === tag.toLowerCase())
         );
 
         return ingredientMatch && applianceMatch && utensilMatch;

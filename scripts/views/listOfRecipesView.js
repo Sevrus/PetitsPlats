@@ -6,60 +6,26 @@ export const generateRecipeCards = (recipes) => {
 
   recipeCountElement.textContent = recipes.length;
 
-  recipes.forEach((recipe) => {
-      const recipeCard = document.createElement("article");
-      recipeCard.classList.add("recipe-card");
+    recipes.forEach((recipe) => {
+        const recipeCard = document.createElement("article");
+        recipeCard.classList.add("recipe-card");
 
-      const recipeTime = document.createElement("span");
-      recipeTime.classList.add("recipe-time");
-      recipeTime.textContent = `${recipe["time"]}min`;
+        recipeCard.innerHTML = `
+      <span class="recipe-time">${recipe["time"]} min</span>
+      <img class="recipe-img" src="./assets/images/recipes/${recipe["image"]}" alt="${recipe["name"]}">
+      <h2 class="recipe-title">${recipe["name"]}</h2>
+      <div class="recipe-container">
+        <h3>Recette</h3>
+        <p>${recipe["description"]}</p>
+        <h3>Ingrédients</h3>
+        <ul class="ingredient-list">
+          ${recipe["ingredients"].map(item => `
+            <li>${item["ingredient"]}${item["quantity"] ? ` : <span>${item["quantity"]} ${item["unit"] || ''}</span>` : ''}</li>
+          `).join('')}
+        </ul>
+      </div>
+    `;
 
-      const recipeImage = document.createElement("img");
-      recipeImage.classList.add("recipe-img");
-      recipeImage.src = `./assets/images/recipes/${recipe["image"]}`;
-      recipeImage.alt = recipe.name;
-
-      const recipeContainer = document.createElement("div");
-      recipeContainer.classList.add("recipe-container");
-
-      const recipeTitle = document.createElement("h2");
-      recipeTitle.classList.add("recipe-title");
-      recipeTitle.textContent = recipe["name"];
-
-      const recipeDescriptionTitle = document.createElement('h3');
-      recipeDescriptionTitle.textContent = 'Recette';
-
-      const recipeDescription = document.createElement('p');
-      recipeDescription.textContent = recipe["description"];
-
-      const ingredientsTitle = document.createElement('h3');
-      ingredientsTitle.textContent = 'Ingrédients';
-
-      const ingredientsList = document.createElement('ul');
-      ingredientsList.classList.add("ingredient-list");
-
-      recipe["ingredients"].forEach((item) => {
-          const ingredientItem = document.createElement('li');
-          const ingredientText = document.createElement('span');
-          ingredientText.classList.add('quantity');
-
-          ingredientItem.textContent = item["ingredient"];
-          if (item["quantity"]) {
-              ingredientText.textContent = `${item["quantity"]}${item["unit"] || ''}`;
-              ingredientItem.appendChild(ingredientText);
-          }
-
-          ingredientsList.appendChild(ingredientItem);
-      });
-
-      recipeCard.appendChild(recipeTime);
-      recipeCard.appendChild(recipeImage);
-      recipeCard.appendChild(recipeTitle);
-      recipeCard.appendChild(recipeContainer);
-      recipeContainer.appendChild(recipeDescriptionTitle);
-      recipeContainer.appendChild(recipeDescription);
-      recipeContainer.appendChild(ingredientsTitle);
-      recipeContainer.appendChild(ingredientsList);
-      container.appendChild(recipeCard);
-  });
+        container.appendChild(recipeCard);
+    });
 }
