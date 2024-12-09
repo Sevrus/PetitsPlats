@@ -48,6 +48,8 @@ export const filterDropdownList = (inputSelector, listSelector) => {
     const input = document.querySelector(inputSelector);
     const list = document.querySelector(listSelector);
 
+    console.log("list of items", list);
+
     input.addEventListener('input', () => {
         const searchTerm = input.value.toLowerCase();
         const items = list.querySelectorAll('.dropdown-item');
@@ -61,7 +63,16 @@ export const filterDropdownList = (inputSelector, listSelector) => {
 
 // Gestion des tags
 export const addTag = (tagText, category, updateCallback) => {
+    if (!category) {
+        console.error("Cannot add tag: category is undefined");
+        return;
+    }
+
     const tagContainer = document.querySelector(`.dropdown-section[data-category="${category}"] .dropdown-tags`);
+    if (!tagContainer) {
+        console.error("Tag container not found for category:", category);
+        return;
+    }
 
     // Vérifier si le tag existe déjà
     const existingTag = Array.from(tagContainer.children).find(tag => tag.textContent.trim() === tagText);
@@ -88,17 +99,51 @@ export const initializeDropdowns = (recipes, updateCallback) => {
     populateDropdownLists(recipes);
 
     // Appliquer le filtrage dynamique sur les champs de recherche des listes déroulantes
-    filterDropdownList('#search-ingredients', '#search-ingredients + .dropdown-list');
-    filterDropdownList('#search-appliance', '#search-appliance + .dropdown-list');
-    filterDropdownList('#search-utensils', '#search-utensils + .dropdown-list');
+    filterDropdownList('#search-ingredients', '.dropdown-ingredients');
+    filterDropdownList('#search-appliance', '.dropdown-appliances');
+    filterDropdownList('#search-utensils', '.dropdown-utensils');
 
     // Gestion des clics sur les items des listes déroulantes
     document.querySelectorAll('.dropdown-list').forEach(list => {
         list.addEventListener('click', (e) => {
-            if (e.target.classList.contains('dropdown-item')) {
-                const category = e.target.closest('.dropdown-section').dataset.category;
-                addTag(e.target.textContent, category, updateCallback);
+            e.stopPropagation();
+
+            const listOfSelection = document.querySelectorAll('.dropdown-selection');
+
+            console.log("list of selection", listOfSelection);
+
+            listOfSelection.forEach(selection => {
+                selection.innerHTML = `
+                <li class="dropdown-selection">${selection.textContent}</li>`;
+            })
+
+            console.log("Raw clicked element:", e.target);
+
+            const dropdownItem = e.target.closest('.dropdown-item');
+            console.log("Resolved dropdown item:", dropdownItem);
+
+            if (!dropdownItem) {
+                console.warn("No valid dropdown item found for click:", e.target);
+                return;
             }
+
+            const dropdownSection = dropdownItem.closest('.dropdown-section');
+            console.log("Resolved dropdown section:", dropdownSection);
+
+            if (!dropdownSection) {
+                console.error("No dropdown section found for:", dropdownItem);
+                return;
+            }
+
+            const category = dropdownSection.dataset.category;
+            console.log("Category resolved:", category);
+
+            if (!category) {
+                console.error("No category found for dropdown section:", dropdownSection);
+                return;
+            }
+
+            addTag(e.target.textContent, category, updateCallback);
         });
     });
 };

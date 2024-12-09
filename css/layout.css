@@ -203,13 +203,13 @@ header {
 }
 
 .dropdown-selections {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding-bottom: 21px;
 }
 
 .dropdown-selection {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     height: 37px;
     padding-left: 16px;
     padding-right: 14px;
@@ -236,6 +236,15 @@ header {
     padding-left: 16px;
     gap: 13px;
     padding-bottom: 10px;
+}
+
+.dropdown-item span {
+    pointer-events: none;
+}
+
+.dropdown-item:hover {
+    background-color: var(--tertiary-color);
+    cursor: pointer;
 }
 
 .dropdown-tags {
