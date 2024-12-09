@@ -9,9 +9,6 @@ fetchData('./data/recipes.json').then(recipes => {
     const targetGlobalSearchCross = document.querySelector(".global-search-cross");
     const targetDropdownHeaders = document.querySelectorAll(".dropdown-header");
 
-    console.log(recipes);
-    console.log("is data an array ?", Array.isArray(recipes));
-
     mainSearchInput.addEventListener("input", (e) => {
         let sanitizedInput = e.target.value.replace(/[^a-zA-Z ]/g, "");
         e.target.value = sanitizedInput;
@@ -27,12 +24,12 @@ fetchData('./data/recipes.json').then(recipes => {
         targetGlobalSearchCross.addEventListener("click", () => {
             e.target.value = "";
             targetGlobalSearchCross.style.display = "none";
+            updateRecipes();
         });
     });
 
     const updateRecipes = () => {
         let filteredRecipes = [...recipes];
-        console.log("recettes filtrées", filteredRecipes);
 
         const mainSearchInput = document.getElementById("global-search").value.trim();
         filteredRecipes = filterRecipesByMainSearch(filteredRecipes, mainSearchInput);
