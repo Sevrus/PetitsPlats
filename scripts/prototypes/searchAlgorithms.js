@@ -5,7 +5,7 @@
  * @returns {*|*[]}
  */
 const filterRecipesByMainSearch = (recipes, searchTerm) => {
-    if (searchTerm.length < 3) return [recipes]; // Lancer la recherche à partir de 3 caractères
+    if (searchTerm.length < 3) return recipes; // Lancer la recherche à partir de 3 caractères
 
     // Filtrer les recettes en fonction du titre, description, ou ingrédients
     return recipes.filter(recipe => {
@@ -28,7 +28,7 @@ const filterRecipesByMainSearch = (recipes, searchTerm) => {
  * @returns {*[]}
  */
 const searchRecipesWithLoops = (recipes, searchTerm) => {
-    if (searchTerm.length < 3) return [recipes]; // Recherche à partir de 3 caractères
+    if (searchTerm.length < 3) return recipes; // Recherche à partir de 3 caractères
 
     const filteredRecipes = [];
     for (let i = 0; i < recipes.length; i++) {

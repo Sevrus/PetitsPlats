@@ -3,7 +3,9 @@ export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, sele
     console.log("Recipes passed to filterRecipesByAdvancedSearch:", recipes);
     console.log("Is recipes an array?", Array.isArray(recipes));
 
-
+    for (const recipesKey in recipes) {
+        console.log("recipe keys", recipesKey);
+    }
 
     recipes.forEach((recipe, index) => {
         console.log(`Recipe ${index + 1}:`, recipe);
@@ -19,8 +21,6 @@ export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, sele
         const ingredients = recipe["ingredients"] || [];
         const appliance = recipe["appliance"] || '';
         const utensils = recipe["ustensils"] || [];
-
-        console.log(ingredients, utensils, appliance);
 
         const ingredientMatch = selectedIngredients.every(tag =>
             ingredients.some(ingredient => ingredient["ingredient"]?.toLowerCase() === tag.toLowerCase())
