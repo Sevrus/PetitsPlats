@@ -48,8 +48,6 @@ export const filterDropdownList = (inputSelector, listSelector) => {
     const input = document.querySelector(inputSelector);
     const list = document.querySelector(listSelector);
 
-    console.log("list of items", list);
-
     input.addEventListener('input', () => {
         const searchTerm = input.value.toLowerCase();
         const items = list.querySelectorAll('.dropdown-item');
@@ -105,43 +103,30 @@ export const initializeDropdowns = (recipes, updateCallback) => {
 
     // Gestion des clics sur les items des listes déroulantes
     document.querySelectorAll('.dropdown-list').forEach(list => {
+
+        if (list.dataset.listenerAdded === "true") {
+            console.log("Listener already added for:", list);
+            return;
+        }
+
+        list.dataset.listenerAdded = "true";
+
         list.addEventListener('click', (e) => {
             e.stopPropagation();
-
-            const listOfSelection = document.querySelectorAll('.dropdown-selection');
-
-            console.log("list of selection", listOfSelection);
-
-            listOfSelection.forEach(selection => {
-                selection.innerHTML = `
-                <li class="dropdown-selection">${selection.textContent}</li>`;
-            })
-
-            console.log("Raw clicked element:", e.target);
 
             const dropdownItem = e.target.closest('.dropdown-item');
             console.log("Resolved dropdown item:", dropdownItem);
 
-            if (!dropdownItem) {
-                console.warn("No valid dropdown item found for click:", e.target);
-                return;
-            }
-
-            const dropdownSection = dropdownItem.closest('.dropdown-section');
-            console.log("Resolved dropdown section:", dropdownSection);
+            const dropdownSection = dropdownItem?.closest('.dropdown-section');
+            console.log("Resolved dropdown-section:", dropdownSection);
 
             if (!dropdownSection) {
-                console.error("No dropdown section found for:", dropdownItem);
+                console.error("Dropdown section not found for:", dropdownItem);
                 return;
             }
 
             const category = dropdownSection.dataset.category;
-            console.log("Category resolved:", category);
-
-            if (!category) {
-                console.error("No category found for dropdown section:", dropdownSection);
-                return;
-            }
+            console.log("Resolved category:", category);
 
             addTag(e.target.textContent, category, updateCallback);
         });
