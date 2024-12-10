@@ -202,14 +202,11 @@ header {
     top: 15px;
 }
 
-.dropdown-selections {
+.dropdown-selection {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding-bottom: 21px;
-}
-
-.dropdown-selection {
     height: 37px;
     padding-left: 16px;
     padding-right: 14px;

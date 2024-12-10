@@ -1,3 +1,11 @@
+/**
+ *
+ * @param recipes
+ * @param selectedIngredients
+ * @param selectedAppliances
+ * @param selectedUtensils
+ * @returns {*}
+ */
 export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, selectedAppliances, selectedUtensils) => {
 
     return recipes.filter(recipe => {
@@ -22,7 +30,10 @@ export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, sele
     });
 };
 
-// Mise à jour des listes déroulantes
+/**
+ *
+ * @param recipes
+ */
 export const populateDropdownLists = (recipes) => {
     const ingredientList = document.querySelector('.dropdown-section[data-category="ingredients"] .dropdown-list');
     const applianceList = document.querySelector('.dropdown-section[data-category="appliances"] .dropdown-list');
@@ -43,7 +54,11 @@ export const populateDropdownLists = (recipes) => {
     utensilList.innerHTML = Array.from(utensils).map(ut => `<li class="dropdown-item">${ut}</li>`).join('');
 };
 
-// Gestion des filtres dans les listes déroulantes
+/**
+ *
+ * @param inputSelector
+ * @param listSelector
+ */
 export const filterDropdownList = (inputSelector, listSelector) => {
     const input = document.querySelector(inputSelector);
     const list = document.querySelector(listSelector);
@@ -59,7 +74,12 @@ export const filterDropdownList = (inputSelector, listSelector) => {
     });
 };
 
-// Gestion des tags
+/**
+ *
+ * @param tagText
+ * @param category
+ * @param updateCallback
+ */
 export const addTag = (tagText, category, updateCallback) => {
     if (!category) {
         console.error("Cannot add tag: category is undefined");
@@ -92,16 +112,18 @@ export const addTag = (tagText, category, updateCallback) => {
     updateCallback();
 };
 
-// Initialisation des listes déroulantes
+/**
+ *
+ * @param recipes
+ * @param updateCallback
+ */
 export const initializeDropdowns = (recipes, updateCallback) => {
     populateDropdownLists(recipes);
 
-    // Appliquer le filtrage dynamique sur les champs de recherche des listes déroulantes
     filterDropdownList('#search-ingredients', '.dropdown-ingredients');
     filterDropdownList('#search-appliance', '.dropdown-appliances');
     filterDropdownList('#search-utensils', '.dropdown-utensils');
 
-    // Gestion des clics sur les items des listes déroulantes
     document.querySelectorAll('.dropdown-list').forEach(list => {
 
         if (list.dataset.listenerAdded === "true") {
@@ -127,6 +149,31 @@ export const initializeDropdowns = (recipes, updateCallback) => {
 
             const category = dropdownSection.dataset.category;
             console.log("Resolved category:", category);
+
+
+
+            // Ajouter l'élément à la bonne dropdown-selections
+            const selectionsList = document.querySelector(`.dropdown-section[data-category="${category}"] .dropdown-selections`);
+            const selectedItem = document.createElement('li');
+            selectedItem.classList.add('dropdown-selection');
+            selectedItem.textContent = dropdownItem.textContent;
+
+            // Ajouter un bouton ou une icône pour supprimer l'élément
+            const removeIcon = document.createElement('img');
+            removeIcon.src = './assets/icons/round-cross.svg';
+            removeIcon.alt = 'Remove selection';
+            removeIcon.addEventListener('click', () => {
+                // Réintégrer l'élément dans la dropdown-list
+                dropdownItem.style.display = ''; // Réafficher l'élément dans la liste
+                dropdownSection.querySelector('.dropdown-list').appendChild(dropdownItem);
+                selectedItem.remove(); // Retirer l'élément de la sélection
+            });
+            selectedItem.appendChild(removeIcon);
+
+            selectionsList.appendChild(selectedItem);
+
+            // Retirer l'élément de la dropdown-list
+            dropdownItem.style.display = 'none'; // Masquer l'élément
 
             addTag(e.target.textContent, category, updateCallback);
         });
