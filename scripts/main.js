@@ -28,6 +28,9 @@ fetchData('./data/recipes.json').then(recipes => {
         });
     });
 
+    /**
+     *
+     */
     const updateRecipes = () => {
         let filteredRecipes = [...recipes];
 
@@ -54,6 +57,10 @@ fetchData('./data/recipes.json').then(recipes => {
 
     generateRecipeCards(recipes);
 
+    /**
+     *
+     * @returns {{ingredients: string[], appliances: string[], utensils: string[]}}
+     */
     const getSelectedTags = () => {
         return {
             ingredients: Array.from(document.querySelectorAll('.dropdown-section[data-category="ingredients"] .dropdown-tags li')).map(tag => tag.textContent.trim()),
@@ -73,9 +80,10 @@ fetchData('./data/recipes.json').then(recipes => {
         });
     });
 
-    // Initialiser les listes déroulantes et les événements associés
+    /**
+     *
+     */
     initializeDropdowns(recipes, () => {
-        // Fonction de mise à jour appelée lors des interactions
         let filteredRecipes = filterRecipesByMainSearch(recipes, document.getElementById("global-search").value.trim());
         const selectedTags = getSelectedTags();
         filteredRecipes = filterRecipesByAdvancedSearch(filteredRecipes, selectedTags.ingredients, selectedTags.appliances, selectedTags.utensils);

@@ -150,30 +150,24 @@ export const initializeDropdowns = (recipes, updateCallback) => {
             const category = dropdownSection.dataset.category;
             console.log("Resolved category:", category);
 
-
-
-            // Ajouter l'élément à la bonne dropdown-selections
             const selectionsList = document.querySelector(`.dropdown-section[data-category="${category}"] .dropdown-selections`);
             const selectedItem = document.createElement('li');
             selectedItem.classList.add('dropdown-selection');
             selectedItem.textContent = dropdownItem.textContent;
 
-            // Ajouter un bouton ou une icône pour supprimer l'élément
             const removeIcon = document.createElement('img');
             removeIcon.src = './assets/icons/round-cross.svg';
             removeIcon.alt = 'Remove selection';
             removeIcon.addEventListener('click', () => {
-                // Réintégrer l'élément dans la dropdown-list
-                dropdownItem.style.display = ''; // Réafficher l'élément dans la liste
+                dropdownItem.style.display = '';
                 dropdownSection.querySelector('.dropdown-list').appendChild(dropdownItem);
-                selectedItem.remove(); // Retirer l'élément de la sélection
+                selectedItem.remove();
             });
             selectedItem.appendChild(removeIcon);
 
             selectionsList.appendChild(selectedItem);
 
-            // Retirer l'élément de la dropdown-list
-            dropdownItem.style.display = 'none'; // Masquer l'élément
+            dropdownItem.style.display = 'none';
 
             addTag(e.target.textContent, category, updateCallback);
         });

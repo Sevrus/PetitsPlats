@@ -1,3 +1,8 @@
+/**
+ *
+ * @param url
+ * @returns {Promise<any>}
+ */
 export const fetchData = async (url) => {
     try {
         const response = await fetch(url);
