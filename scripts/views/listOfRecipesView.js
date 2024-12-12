@@ -1,6 +1,7 @@
 /**
+ * Renders and displays a list of recipe cards.
  *
- * @param recipes
+ * @param {Array<Object>} recipes - An array of recipe objects to be displayed.
  */
 export const generateRecipeCards = (recipes) => {
   const container = document.querySelector(".recipe-list");

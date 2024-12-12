@@ -1,8 +1,9 @@
 /**
- * Search with modern method (filter, some)
- * @param recipes
- * @param searchTerm
- * @returns {*|*[]}
+ * Filters recipes based on the main search term using modern array methods.
+ *
+ * @param {Array<Object>} recipes - An array of recipe objects to be searched.
+ * @param {string} searchTerm - The search term used to filter the recipes.
+ * @returns {Array<Object>} - An array of filtered recipe objects.
  */
 const filterRecipesByMainSearch = (recipes, searchTerm) => {
     if (searchTerm.length < 3) return recipes;
@@ -20,10 +21,11 @@ const filterRecipesByMainSearch = (recipes, searchTerm) => {
 };
 
 /**
- * Search with traditional loop (for, if)
- * @param recipes
- * @param searchTerm
- * @returns {*[]}
+ * Filters recipes based on the main search term using traditional loops.
+ *
+ * @param {Array<Object>} recipes - An array of recipe objects to be searched.
+ * @param {string} searchTerm - The search term used to filter the recipes.
+ * @returns {Array<Object>} - An array of filtered recipe objects.
  */
 const searchRecipesWithLoops = (recipes, searchTerm) => {
     if (searchTerm.length < 3) return recipes;

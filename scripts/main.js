@@ -4,12 +4,20 @@ import { generateRecipeCards } from "./views/listOfRecipesView.js";
 import {filterRecipesByMainSearch} from "./prototypes/searchAlgorithms.js";
 import {sanitizedInput, selectedItems} from "./utils/utilities.js";
 
+/**
+ * Initializes the application by fetching recipe data, setting up event listeners
+ * for global and advanced searches, and generating recipe cards.
+ */
 fetchData('./data/recipes.json').then(recipes => {
     const mainSearchInput = document.getElementById("global-search");
     const targetErrorMessage = document.querySelector(".error-message");
     const targetGlobalSearchCross = document.querySelector(".global-search-cross");
     const targetDropdownHeaders = document.querySelectorAll(".dropdown-header");
 
+    /**
+     * Adds an event listener to the global search bar to handle user input.
+     * Validates the input length and updates the filtered recipe list.
+     */
     mainSearchInput.addEventListener("input", (e) => {
 
         if (sanitizedInput(e).length > 0 && sanitizedInput(e).length < 3) {
@@ -28,7 +36,8 @@ fetchData('./data/recipes.json').then(recipes => {
     });
 
     /**
-     *
+     * Updates the list of displayed recipes based on the global search input,
+     * selected tags, and advanced search criteria.
      */
     const updateRecipes = () => {
         let filteredRecipes = [...recipes];
@@ -50,7 +59,6 @@ fetchData('./data/recipes.json').then(recipes => {
         );
 
         generateRecipeCards(filteredRecipes);
-        // populateDropdownLists(filteredRecipes);
     };
 
     initializeDropdowns(recipes, updateRecipes);
@@ -62,8 +70,10 @@ fetchData('./data/recipes.json').then(recipes => {
     generateRecipeCards(recipes);
 
     /**
+     * Retrieves selected tags from dropdowns (ingredients, appliances, and utensils).
      *
      * @returns {{ingredients: string[], appliances: string[], utensils: string[]}}
+     *          An object containing arrays of selected tags for each category.
      */
     const getSelectedTags = () => {
         return {
@@ -85,7 +95,8 @@ fetchData('./data/recipes.json').then(recipes => {
     });
 
     /**
-     *
+     * Initializes dropdowns with the ability to filter recipes using advanced search.
+     * Synchronizes dropdown selections with the displayed recipes.
      */
     initializeDropdowns(recipes, () => {
         populateDropdownLists(recipes, selectedItems);

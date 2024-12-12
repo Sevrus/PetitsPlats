@@ -221,7 +221,6 @@ header {
     align-items: center;
     justify-content: space-between;
     height: 37px;
-    padding-bottom: 21px;
     padding-left: 16px;
     padding-right: 14px;
     background-color: var(--primary-color);

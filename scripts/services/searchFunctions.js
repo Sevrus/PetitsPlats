@@ -1,12 +1,13 @@
 import {selectedItems} from "../utils/utilities.js";
 
 /**
+ * Filters recipes based on selected ingredients, appliances, and utensils.
  *
- * @param recipes
- * @param selectedIngredients
- * @param selectedAppliances
- * @param selectedUtensils
- * @returns {*}
+ * @param {Array<Object>} recipes - An array of recipe objects to filter.
+ * @param {Array<string>} selectedIngredients - Selected ingredient tags to filter by.
+ * @param {Array<string>} selectedAppliances - Selected appliance tags to filter by.
+ * @param {Array<string>} selectedUtensils - Selected utensil tags to filter by.
+ * @returns {Array<Object>} - An array of filtered recipe objects.
  */
 export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, selectedAppliances, selectedUtensils) => {
     return recipes.filter(recipe => {
@@ -31,9 +32,10 @@ export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, sele
 };
 
 /**
+ * Populates the dropdown lists with filtered items based on the selected recipes and tags.
  *
- * @param recipes
- * @param selectedItems
+ * @param {Array<Object>} recipes - An array of recipe objects used to populate the dropdowns.
+ * @param {Object} selectedItems - An object containing the selected tags for each category.
  */
 export const populateDropdownLists = (recipes, selectedItems) => {
     const ingredientList = document.querySelector('.dropdown-section[data-category="ingredients"] .dropdown-list');
@@ -61,9 +63,10 @@ export const populateDropdownLists = (recipes, selectedItems) => {
 };
 
 /**
+ * Filters items in a dropdown list based on user input.
  *
- * @param inputSelector
- * @param listSelector
+ * @param {string} inputSelector - The CSS selector for the input field.
+ * @param {string} listSelector - The CSS selector for the dropdown list.
  */
 const filterDropdownList = (inputSelector, listSelector) => {
     const input = document.querySelector(inputSelector);
@@ -81,10 +84,11 @@ const filterDropdownList = (inputSelector, listSelector) => {
 };
 
 /**
+ * Adds a tag to the specified category and updates the UI.
  *
- * @param tagText
- * @param category
- * @param updateCallback
+ * @param {string} tagText - The text content of the tag to be added.
+ * @param {string} category - The category to which the tag belongs (e.g., ingredients, appliances).
+ * @param {function} updateCallback - Callback function to invoke after the tag is added.
  */
 const addTag = (tagText, category, updateCallback) => {
     if (!category) {
@@ -123,9 +127,15 @@ const addTag = (tagText, category, updateCallback) => {
 };
 
 /**
+ * Initializes dropdown menus for ingredients, appliances, and utensils.
  *
- * @param recipes
- * @param updateCallback
+ * This function:
+ * - Populates dropdown lists based on the provided recipes.
+ * - Sets up input filtering for dropdowns.
+ * - Adds click event listeners to dropdown items to handle user interactions, avoiding duplicate listeners.
+ *
+ * @param {Array<Object>} recipes - The array of recipe objects to populate dropdown lists.
+ * @param {function} updateCallback - A callback function to update the interface/state after dropdown interactions.
  */
 export const initializeDropdowns = (recipes, updateCallback) => {
     populateDropdownLists(recipes, selectedItems);
@@ -163,6 +173,21 @@ export const initializeDropdowns = (recipes, updateCallback) => {
     });
 };
 
+/**
+ * Handles the click event for a dropdown item and updates the UI and state accordingly.
+ *
+ * This function:
+ * - Adds the selected item to the respective category's selected items.
+ * - Updates the dropdown lists to remove the selected item.
+ * - Creates a new list element in the "selections" area of the dropdown with the chosen item.
+ * - Adds a delete button to allow users to remove the selected item.
+ * - Updates the UI and re-populates the dropdowns when an item is removed.
+ *
+ * @param {HTMLElement} dropdownItem - The clicked dropdown item element.
+ * @param {HTMLElement} dropdownSection - The parent section of the dropdown, used to identify the category.
+ * @param {Array<Object>} recipes - The list of recipes used to re-populate the dropdowns.
+ * @param {function} updateCallback - A callback function triggered to update the state/UI when selections change.
+ */
 const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes, updateCallback) => {
     const category = dropdownSection.dataset.category;
     const itemText = dropdownItem.textContent.trim();
