@@ -1,3 +1,5 @@
+import {selectedItems} from "../utils/utilities.js";
+
 /**
  *
  * @param recipes
@@ -7,9 +9,7 @@
  * @returns {*}
  */
 export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, selectedAppliances, selectedUtensils) => {
-
     return recipes.filter(recipe => {
-
         const ingredients = recipe["ingredients"] || [];
         const appliance = recipe["appliance"] || '';
         const utensils = recipe["ustensils"] || [];
@@ -33,8 +33,9 @@ export const filterRecipesByAdvancedSearch = (recipes, selectedIngredients, sele
 /**
  *
  * @param recipes
+ * @param selectedItems
  */
-export const populateDropdownLists = (recipes) => {
+export const populateDropdownLists = (recipes, selectedItems) => {
     const ingredientList = document.querySelector('.dropdown-section[data-category="ingredients"] .dropdown-list');
     const applianceList = document.querySelector('.dropdown-section[data-category="appliances"] .dropdown-list');
     const utensilList = document.querySelector('.dropdown-section[data-category="utensils"] .dropdown-list');
@@ -49,9 +50,14 @@ export const populateDropdownLists = (recipes) => {
         recipe["ustensils"].forEach(utensil => utensils.add(utensil));
     });
 
-    ingredientList.innerHTML = Array.from(ingredients).map(ing => `<li class="dropdown-item">${ing}</li>`).join('');
-    applianceList.innerHTML = Array.from(appliances).map(app => `<li class="dropdown-item">${app}</li>`).join('');
-    utensilList.innerHTML = Array.from(utensils).map(ut => `<li class="dropdown-item">${ut}</li>`).join('');
+    const filterSelected = (set, category) => Array.from(set).filter(item => !selectedItems[category].has(item));
+
+    ingredientList.innerHTML = filterSelected(ingredients, "ingredients")
+        .map(ing => `<li class="dropdown-item">${ing}</li>`).join('');
+    applianceList.innerHTML = filterSelected(appliances, "appliances")
+        .map(app => `<li class="dropdown-item">${app}</li>`).join('');
+    utensilList.innerHTML = filterSelected(utensils, "utensils")
+        .map(ut => `<li class="dropdown-item">${ut}</li>`).join('');
 };
 
 /**
@@ -59,7 +65,7 @@ export const populateDropdownLists = (recipes) => {
  * @param inputSelector
  * @param listSelector
  */
-export const filterDropdownList = (inputSelector, listSelector) => {
+const filterDropdownList = (inputSelector, listSelector) => {
     const input = document.querySelector(inputSelector);
     const list = document.querySelector(listSelector);
 
@@ -80,7 +86,7 @@ export const filterDropdownList = (inputSelector, listSelector) => {
  * @param category
  * @param updateCallback
  */
-export const addTag = (tagText, category, updateCallback) => {
+const addTag = (tagText, category, updateCallback) => {
     if (!category) {
         console.error("Cannot add tag: category is undefined");
         return;
@@ -92,11 +98,9 @@ export const addTag = (tagText, category, updateCallback) => {
         return;
     }
 
-    // Vérifier si le tag existe déjà
     const existingTag = Array.from(tagContainer.children).find(tag => tag.textContent.trim() === tagText);
     if (existingTag) return;
 
-    // Ajouter un nouveau tag
     const tag = document.createElement('li');
     tag.textContent = tagText;
     const removeIcon = document.createElement('img');
@@ -118,14 +122,13 @@ export const addTag = (tagText, category, updateCallback) => {
  * @param updateCallback
  */
 export const initializeDropdowns = (recipes, updateCallback) => {
-    populateDropdownLists(recipes);
+    populateDropdownLists(recipes, selectedItems);
 
     filterDropdownList('#search-ingredients', '.dropdown-ingredients');
     filterDropdownList('#search-appliance', '.dropdown-appliances');
     filterDropdownList('#search-utensils', '.dropdown-utensils');
 
     document.querySelectorAll('.dropdown-list').forEach(list => {
-
         if (list.dataset.listenerAdded === "true") {
             console.log("Listener already added for:", list);
             return;
@@ -137,10 +140,8 @@ export const initializeDropdowns = (recipes, updateCallback) => {
             e.stopPropagation();
 
             const dropdownItem = e.target.closest('.dropdown-item');
-            console.log("Resolved dropdown item:", dropdownItem);
 
             const dropdownSection = dropdownItem?.closest('.dropdown-section');
-            console.log("Resolved dropdown-section:", dropdownSection);
 
             if (!dropdownSection) {
                 console.error("Dropdown section not found for:", dropdownItem);
@@ -148,30 +149,40 @@ export const initializeDropdowns = (recipes, updateCallback) => {
             }
 
             const category = dropdownSection.dataset.category;
-            console.log("Resolved category:", category);
 
-            const selectionsList = document.querySelector(`.dropdown-section[data-category="${category}"] .dropdown-selections`);
-            const selectedItem = document.createElement('li');
-            selectedItem.classList.add('dropdown-selection');
-            selectedItem.textContent = dropdownItem.textContent;
-
-            const removeIcon = document.createElement('img');
-            removeIcon.src = './assets/icons/round-cross.svg';
-            removeIcon.alt = 'Remove selection';
-            removeIcon.addEventListener('click', () => {
-                dropdownItem.style.display = '';
-                dropdownSection.querySelector('.dropdown-list').appendChild(dropdownItem);
-                selectedItem.remove();
-            });
-            selectedItem.appendChild(removeIcon);
-
-            selectionsList.appendChild(selectedItem);
-
-            dropdownItem.style.display = 'none';
+            handleDropdownItemClick(dropdownItem, dropdownSection, recipes);
 
             addTag(e.target.textContent, category, updateCallback);
         });
     });
+};
+
+const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes) => {
+    const category = dropdownSection.dataset.category;
+    const itemText = dropdownItem.textContent.trim();
+
+    selectedItems[category].add(itemText);
+    populateDropdownLists(recipes, selectedItems);
+
+    const selectionsList = dropdownSection.querySelector('.dropdown-selections');
+    const selectedItem = document.createElement('li');
+    selectedItem.classList.add('dropdown-selection');
+    selectedItem.textContent = itemText;
+
+    const removeIcon = document.createElement('img');
+    removeIcon.src = './assets/icons/round-cross.svg';
+    removeIcon.alt = 'Remove selection';
+    removeIcon.addEventListener('click', () => {
+        selectedItems[category].delete(itemText);
+        populateDropdownLists(recipes, selectedItems);
+
+        selectedItem.remove();
+    });
+
+    selectedItem.appendChild(removeIcon);
+    selectionsList.appendChild(selectedItem);
+
+    dropdownItem.remove();
 };
 
 

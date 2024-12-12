@@ -99,8 +99,15 @@ header {
     background-color: var(--primary-color);
 }
 
-.wen-container:hover>img {
+.wen-container:hover > img {
     filter: invert(1);
+}
+
+.error-message {
+    align-self: flex-start;
+    padding-left: calc((100% - 884px) / 2);
+    padding-top: 10px;
+    color: var(--primary-color);
 }
 
 /*SECTION SEARCHBAR*/
@@ -202,12 +209,19 @@ header {
     top: 15px;
 }
 
+.dropdown-selections {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-bottom: 20px;
+}
+
 .dropdown-selection {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 21px;
     height: 37px;
+    padding-bottom: 21px;
     padding-left: 16px;
     padding-right: 14px;
     background-color: var(--primary-color);
@@ -222,7 +236,7 @@ header {
     font-weight: bold;
 }
 
-.dropdown-selection:hover>img {
+.dropdown-selection:hover > img {
     display: inline-block;
 }
 
@@ -304,6 +318,7 @@ main {
     background-color: var(--primary-color);
     border-radius: 14px;
 }
+
 .recipe-img {
     height: 253px;
     width: 100%;

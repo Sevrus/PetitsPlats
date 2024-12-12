@@ -2,6 +2,7 @@ import { fetchData } from "./services/api.js";
 import {filterRecipesByAdvancedSearch, initializeDropdowns, populateDropdownLists} from "./services/searchFunctions.js";
 import { generateRecipeCards } from "./views/listOfRecipesView.js";
 import {filterRecipesByMainSearch} from "./prototypes/searchAlgorithms.js";
+import {sanitizedInput, selectedItems} from "./utils/utilities.js";
 
 fetchData('./data/recipes.json').then(recipes => {
     const mainSearchInput = document.getElementById("global-search");
@@ -10,10 +11,8 @@ fetchData('./data/recipes.json').then(recipes => {
     const targetDropdownHeaders = document.querySelectorAll(".dropdown-header");
 
     mainSearchInput.addEventListener("input", (e) => {
-        let sanitizedInput = e.target.value.replace(/[^a-zA-Z ]/g, "");
-        e.target.value = sanitizedInput;
 
-        if (sanitizedInput.length < 3) {
+        if (sanitizedInput(e).length > 0 && sanitizedInput(e).length < 3) {
             targetErrorMessage.textContent = "Veuillez entrer au moins 3 caractères.";
             targetGlobalSearchCross.style.display = "none";
         } else {
@@ -33,9 +32,14 @@ fetchData('./data/recipes.json').then(recipes => {
      */
     const updateRecipes = () => {
         let filteredRecipes = [...recipes];
+        let errorMessage = targetErrorMessage.textContent;
 
         const mainSearchInput = document.getElementById("global-search").value.trim();
         filteredRecipes = filterRecipesByMainSearch(filteredRecipes, mainSearchInput);
+        const message = `Aucune recette ne contient '${mainSearchInput}' vous pouvez chercher «
+            tarte aux pommes », « poisson », etc.`;
+
+        filteredRecipes.length < 1 ? errorMessage = message : errorMessage = "";
 
         const selectedTags = getSelectedTags();
         filteredRecipes = filterRecipesByAdvancedSearch(
@@ -46,7 +50,7 @@ fetchData('./data/recipes.json').then(recipes => {
         );
 
         generateRecipeCards(filteredRecipes);
-        populateDropdownLists(filteredRecipes);
+        // populateDropdownLists(filteredRecipes);
     };
 
     initializeDropdowns(recipes, updateRecipes);
@@ -84,6 +88,7 @@ fetchData('./data/recipes.json').then(recipes => {
      *
      */
     initializeDropdowns(recipes, () => {
+        populateDropdownLists(recipes, selectedItems);
         let filteredRecipes = filterRecipesByMainSearch(recipes, document.getElementById("global-search").value.trim());
         const selectedTags = getSelectedTags();
         filteredRecipes = filterRecipesByAdvancedSearch(filteredRecipes, selectedTags.ingredients, selectedTags.appliances, selectedTags.utensils);

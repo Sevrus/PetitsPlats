@@ -1,5 +1,5 @@
 /**
- * Recherche avec les méthodes modernes (filter, some)
+ * Search with modern method (filter, some)
  * @param recipes
  * @param searchTerm
  * @returns {*|*[]}
@@ -20,7 +20,7 @@ const filterRecipesByMainSearch = (recipes, searchTerm) => {
 };
 
 /**
- * Recherche avec des boucles traditionnelles (for, if)
+ * Search with traditional loop (for, if)
  * @param recipes
  * @param searchTerm
  * @returns {*[]}

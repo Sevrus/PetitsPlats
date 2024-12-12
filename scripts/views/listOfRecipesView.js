@@ -1,3 +1,7 @@
+/**
+ *
+ * @param recipes
+ */
 export const generateRecipeCards = (recipes) => {
   const container = document.querySelector(".recipe-list");
   const recipeCountElement = document.getElementById("recipe-count");
