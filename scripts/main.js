@@ -1,8 +1,8 @@
 import { fetchData } from "./services/api.js";
 import {filterRecipesByAdvancedSearch, initializeDropdowns, populateDropdownLists} from "./services/searchFunctions.js";
 import { generateRecipeCards } from "./views/listOfRecipesView.js";
-import {filterRecipesByMainSearch} from "./prototypes/searchAlgorithms.js";
 import {sanitizedInput, selectedItems} from "./utils/utilities.js";
+import {filterRecipesByMainSearch} from "./prototypes/filterRecipesByMainSearch.js";
 
 /**
  * Initializes the application by fetching recipe data, setting up event listeners
