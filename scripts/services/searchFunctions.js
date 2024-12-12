@@ -156,14 +156,14 @@ export const initializeDropdowns = (recipes, updateCallback) => {
 
             const category = dropdownSection.dataset.category;
 
-            handleDropdownItemClick(dropdownItem, dropdownSection, recipes);
+            handleDropdownItemClick(dropdownItem, dropdownSection, recipes, updateCallback);
 
             addTag(e.target.textContent, category, updateCallback);
         });
     });
 };
 
-const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes) => {
+const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes, updateCallback) => {
     const category = dropdownSection.dataset.category;
     const itemText = dropdownItem.textContent.trim();
 
@@ -187,6 +187,8 @@ const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes) => {
 
         selectedItems[category].delete(itemText);
         populateDropdownLists(recipes, selectedItems);
+
+        updateCallback();
     });
 
     selectedItem.appendChild(removeIcon);
