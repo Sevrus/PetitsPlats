@@ -41,22 +41,25 @@ fetchData('./data/recipes.json').then(recipes => {
      */
     const updateRecipes = () => {
         let filteredRecipes = [...recipes];
-        let errorMessage = targetErrorMessage.textContent;
-
         const mainSearchInput = document.getElementById("global-search").value.trim();
-        filteredRecipes = filterRecipesByMainSearch(filteredRecipes, mainSearchInput);
-        const message = `Aucune recette ne contient '${mainSearchInput}' vous pouvez chercher «
-            tarte aux pommes », « poisson », etc.`;
-
-        filteredRecipes.length < 1 ? errorMessage = message : errorMessage = "";
-
         const selectedTags = getSelectedTags();
+
+        filteredRecipes = filterRecipesByMainSearch(filteredRecipes, mainSearchInput);
+
         filteredRecipes = filterRecipesByAdvancedSearch(
             filteredRecipes,
             selectedTags.ingredients,
             selectedTags.appliances,
             selectedTags.utensils
         );
+
+        if (filteredRecipes.length < 1) {
+            targetErrorMessage.textContent = `Aucune recette ne contient '${mainSearchInput}'. Essayez « tarte aux pommes », « poisson », etc.`;
+            targetErrorMessage.style.display = "block";
+        } else {
+            targetErrorMessage.textContent = "";
+            targetErrorMessage.style.display = "none";
+        }
 
         generateRecipeCards(filteredRecipes);
     };
