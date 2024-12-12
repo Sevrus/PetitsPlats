@@ -103,11 +103,17 @@ const addTag = (tagText, category, updateCallback) => {
 
     const tag = document.createElement('li');
     tag.textContent = tagText;
+    tag.setAttribute('data-value', tagText);
+
     const removeIcon = document.createElement('img');
     removeIcon.src = './assets/icons/cross.svg';
     removeIcon.alt = 'Remove Tag';
     removeIcon.addEventListener('click', () => {
         tag.remove();
+
+        const relatedSelection = document.querySelector(`.dropdown-selections li[data-value="${tagText}"]`);
+        if(relatedSelection) relatedSelection.remove();
+
         updateCallback();
     });
     tag.appendChild(removeIcon);
@@ -168,15 +174,19 @@ const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes) => {
     const selectedItem = document.createElement('li');
     selectedItem.classList.add('dropdown-selection');
     selectedItem.textContent = itemText;
+    selectedItem.setAttribute('data-value', itemText);
 
     const removeIcon = document.createElement('img');
     removeIcon.src = './assets/icons/round-cross.svg';
     removeIcon.alt = 'Remove selection';
     removeIcon.addEventListener('click', () => {
+        selectedItem.remove();
+
+        const relatedTag = document.querySelector(`.dropdown-tags li[data-value="${itemText}"]`);
+        if(relatedTag) relatedTag.remove();
+
         selectedItems[category].delete(itemText);
         populateDropdownLists(recipes, selectedItems);
-
-        selectedItem.remove();
     });
 
     selectedItem.appendChild(removeIcon);
