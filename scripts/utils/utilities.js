@@ -13,26 +13,6 @@ export const sanitizedInput = (event) => {
     return sanitizedInput;
 };
 
-/**
- * Updates the HTML content of a dropdown list with new items.
- *
- * This function:
- * - Clears the current list items of a dropdown.
- * - Dynamically creates new list elements for each item provided in the `items` array.
- *
- * @param {Array<string>} items - An array of strings to populate the dropdown list.
- */
-export const updateDropdownList = (items) => {
-    const dropdownList = document.querySelector('.dropdown-list');
-    dropdownList.innerHTML = '';
-    items.forEach(item => {
-        const li = document.createElement('li');
-        li.classList.add('dropdown-item');
-        li.textContent = item;
-        dropdownList.appendChild(li);
-    });
-};
-
 export const selectedItems = {
     ingredients: new Set(),
     appliances: new Set(),
