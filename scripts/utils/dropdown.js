@@ -4,7 +4,7 @@
  * This function enables toggling dropdown menus open and closed when clicking on headers.
  *  * It also ensures that clicking outside any dropdown closes all open dropdowns.
  *
- * @param {NodeListOf<HTMLElement>} targetDropdownHeaders - A collection of dropdown header elements.
+ * @param {NodeListOf<Element>} targetDropdownHeaders - A collection of dropdown header elements.
  * Each header should be a direct child of a dropdown parent container.
  */
 export const initializeDropdownsMechanics = (targetDropdownHeaders) => {
