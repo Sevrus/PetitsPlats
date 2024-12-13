@@ -3,6 +3,7 @@ import {filterRecipesByAdvancedSearch, initializeDropdowns, populateDropdownList
 import { generateRecipeCards } from "./views/listOfRecipesView.js";
 import {filterRecipesByMainSearch} from "./prototypes/searchAlgorithms.js";
 import {sanitizedInput, selectedItems} from "./utils/utilities.js";
+import {initializeDropdownsMechanics} from "./utils/dropdown.js";
 
 /**
  * Initializes the application by fetching recipe data, setting up event listeners
@@ -86,16 +87,7 @@ fetchData('./data/recipes.json').then(recipes => {
         };
     };
 
-    targetDropdownHeaders.forEach(targetDropdownHeader => {
-        targetDropdownHeader.addEventListener("click", () => {
-            if (targetDropdownHeader.parentElement.classList.contains("open")) {
-                targetDropdownHeader.parentElement.classList.remove("open");
-
-            } else {
-                targetDropdownHeader.parentElement.classList.add("open");
-            }
-        });
-    });
+    initializeDropdownsMechanics(targetDropdownHeaders);
 
     /**
      * Initializes dropdowns with the ability to filter recipes using advanced search.
