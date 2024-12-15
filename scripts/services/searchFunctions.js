@@ -71,16 +71,40 @@ export const populateDropdownLists = (recipes, selectedItems) => {
 const filterDropdownList = (inputSelector, listSelector) => {
     const input = document.querySelector(inputSelector);
     const list = document.querySelector(listSelector);
+    const cross = input.closest('.dropdown-search-container').querySelector('.dropdown-search-cross');
+
+    if (cross) cross.style.display = 'none';
 
     input.addEventListener('input', () => {
         const searchTerm = input.value.toLowerCase();
         const items = list.querySelectorAll('.dropdown-item');
+
+        if (input.value.length > 0) {
+            if (cross) cross.style.display = "block";
+        } else {
+            if (cross) cross.style.display = "none";
+        }
 
         items.forEach(item => {
             const text = item.textContent.toLowerCase();
             item.style.display = text.includes(searchTerm) ? '' : 'none';
         });
     });
+
+    if (cross) {
+        cross.addEventListener('click', () => {
+            input.value = "";
+            cross.style.display = "none";
+
+            const items = list.querySelectorAll('.dropdown-item');
+            items.forEach(item => {
+                item.style.display = '';
+            });
+
+            const event = new Event("input", { bubbles: true });
+            input.dispatchEvent(event);
+        });
+    }
 };
 
 /**
@@ -116,7 +140,7 @@ const addTag = (tagText, category, updateCallback) => {
         tag.remove();
 
         const relatedSelection = document.querySelector(`.dropdown-selections li[data-value="${tagText}"]`);
-        if(relatedSelection) relatedSelection.remove();
+        if (relatedSelection) relatedSelection.remove();
 
         updateCallback();
     });
@@ -208,7 +232,7 @@ const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes, updateC
         selectedItem.remove();
 
         const relatedTag = document.querySelector(`.dropdown-tags li[data-value="${itemText}"]`);
-        if(relatedTag) relatedTag.remove();
+        if (relatedTag) relatedTag.remove();
 
         selectedItems[category].delete(itemText);
         populateDropdownLists(recipes, selectedItems);
