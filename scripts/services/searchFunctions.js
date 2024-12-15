@@ -170,7 +170,6 @@ export const initializeDropdowns = (recipes, updateCallback) => {
 
     document.querySelectorAll('.dropdown-list').forEach(list => {
         if (list.dataset.listenerAdded === "true") {
-            console.log("Listener already added for:", list);
             return;
         }
 
