@@ -13,6 +13,21 @@ export const sanitizedInput = (event) => {
     return sanitizedInput;
 };
 
+export const updateErrorMessage = (mainSearchInput, filteredRecipes) => {
+    const targetErrorMessage = document.querySelector(".error-message");
+
+    if (mainSearchInput.length > 0 && mainSearchInput.length < 3) {
+        targetErrorMessage.textContent = "Veuillez entrer au moins 3 caractères.";
+        targetErrorMessage.style.display = "block";
+    } else if (filteredRecipes.length < 1 && mainSearchInput.length > 2) {
+        targetErrorMessage.textContent = `Aucune recette ne contient '${mainSearchInput}'. Essayez « tarte aux pommes », « poisson », etc.`;
+        targetErrorMessage.style.display = "block";
+    } else {
+        targetErrorMessage.textContent = "";
+        targetErrorMessage.style.display = "none";
+    }
+}
+
 export const selectedItems = {
     ingredients: new Set(),
     appliances: new Set(),

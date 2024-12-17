@@ -1,8 +1,8 @@
-import { fetchData } from "./services/api.js";
+import {fetchData} from "./services/api.js";
 import {filterRecipesByAdvancedSearch, initializeDropdowns, populateDropdownLists} from "./services/searchFunctions.js";
-import { generateRecipeCards } from "./views/listOfRecipesView.js";
+import {generateRecipeCards} from "./views/listOfRecipesView.js";
 import {filterRecipesByMainSearch} from "./prototypes/searchAlgorithms.js";
-import {sanitizedInput, selectedItems} from "./utils/utilities.js";
+import {sanitizedInput, selectedItems, updateErrorMessage} from "./utils/utilities.js";
 import {initializeDropdownsMechanics} from "./utils/dropdown.js";
 
 /**
@@ -11,29 +11,32 @@ import {initializeDropdownsMechanics} from "./utils/dropdown.js";
  */
 fetchData('./data/recipes.json').then(recipes => {
     const mainSearchInput = document.getElementById("global-search");
-    const targetErrorMessage = document.querySelector(".error-message");
     const targetGlobalSearchCross = document.querySelector(".global-search-cross");
     const targetDropdownHeaders = document.querySelectorAll(".dropdown-header");
+    const targetErrorMessage = document.querySelectorAll(".error-message");
 
     /**
      * Adds an event listener to the global search bar to handle user input.
      * Validates the input length and updates the filtered recipe list.
      */
     mainSearchInput.addEventListener("input", (e) => {
+        const sanitizedValue = sanitizedInput(e);
 
-        if (sanitizedInput(e).length > 0 && sanitizedInput(e).length < 3) {
-            targetErrorMessage.textContent = "Veuillez entrer au moins 3 caractères.";
-            targetGlobalSearchCross.style.display = "none";
-        } else {
-            targetErrorMessage.textContent = "";
+        if (sanitizedValue.length > 0) {
             targetGlobalSearchCross.style.display = "block";
+        } else {
+            targetGlobalSearchCross.style.display = "none";
         }
 
-        targetGlobalSearchCross.addEventListener("click", () => {
-            e.target.value = "";
-            targetGlobalSearchCross.style.display = "none";
-            updateRecipes();
-        });
+        updateRecipes();
+    });
+
+    targetGlobalSearchCross.addEventListener("click", () => {
+        mainSearchInput.value = "";
+        targetGlobalSearchCross.style.display = "none";
+        targetErrorMessage.textContent = "";
+
+        updateRecipes();
     });
 
     /**
@@ -54,13 +57,7 @@ fetchData('./data/recipes.json').then(recipes => {
             selectedTags.utensils
         );
 
-        if (filteredRecipes.length < 1) {
-            targetErrorMessage.textContent = `Aucune recette ne contient '${mainSearchInput}'. Essayez « tarte aux pommes », « poisson », etc.`;
-            targetErrorMessage.style.display = "block";
-        } else {
-            targetErrorMessage.textContent = "";
-            targetErrorMessage.style.display = "none";
-        }
+        updateErrorMessage(mainSearchInput, filteredRecipes);
 
         generateRecipeCards(filteredRecipes);
     };
