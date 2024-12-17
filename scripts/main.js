@@ -1,7 +1,7 @@
 import { fetchData } from "./services/api.js";
 import {filterRecipesByAdvancedSearch, initializeDropdowns, populateDropdownLists} from "./services/searchFunctions.js";
 import { generateRecipeCards } from "./views/listOfRecipesView.js";
-import {sanitizedInput, selectedItems} from "./utils/utilities.js";
+import {sanitizedInput, selectedItems, updateErrorMessage} from "./utils/utilities.js";
 import {initializeDropdownsMechanics} from "./utils/dropdown.js";
 import {filterRecipesByMainSearch} from "./prototypes/filterRecipesByMainSearch.js";
 
@@ -20,20 +20,23 @@ fetchData('./data/recipes.json').then(recipes => {
      * Validates the input length and updates the filtered recipe list.
      */
     mainSearchInput.addEventListener("input", (e) => {
+        const sanitizedValue = sanitizedInput(e);
 
-        if (sanitizedInput(e).length > 0 && sanitizedInput(e).length < 3) {
-            targetErrorMessage.textContent = "Veuillez entrer au moins 3 caractères.";
-            targetGlobalSearchCross.style.display = "none";
-        } else {
-            targetErrorMessage.textContent = "";
+        if (sanitizedValue.length > 0) {
             targetGlobalSearchCross.style.display = "block";
+        } else {
+            targetGlobalSearchCross.style.display = "none";
         }
 
-        targetGlobalSearchCross.addEventListener("click", () => {
-            e.target.value = "";
-            targetGlobalSearchCross.style.display = "none";
-            updateRecipes();
-        });
+        updateRecipes();
+    });
+
+    targetGlobalSearchCross.addEventListener("click", () => {
+        mainSearchInput.value = "";
+        targetGlobalSearchCross.style.display = "none";
+        targetErrorMessage.textContent = "";
+
+        updateRecipes();
     });
 
     /**
@@ -54,13 +57,7 @@ fetchData('./data/recipes.json').then(recipes => {
             selectedTags.utensils
         );
 
-        if (filteredRecipes.length < 1) {
-            targetErrorMessage.textContent = `Aucune recette ne contient '${mainSearchInput}'. Essayez « tarte aux pommes », « poisson », etc.`;
-            targetErrorMessage.style.display = "block";
-        } else {
-            targetErrorMessage.textContent = "";
-            targetErrorMessage.style.display = "none";
-        }
+        updateErrorMessage(mainSearchInput, filteredRecipes);
 
         generateRecipeCards(filteredRecipes);
     };
