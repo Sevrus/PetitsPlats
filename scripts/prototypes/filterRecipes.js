@@ -6,10 +6,9 @@
  * @returns {Array<Object>} - An array of filtered recipe objects.
  */
 export const filterRecipesByMainSearch = (recipes, searchTerm) => {
-    if (!searchTerm || searchTerm.trim().length < 3) return recipes;
-
     const lowerSearchTerm = searchTerm.toLowerCase().trim();
     const filteredRecipes = [];
+    let index = 0;
 
     for (const recipe of recipes) {
         let match = false;
@@ -32,7 +31,8 @@ export const filterRecipesByMainSearch = (recipes, searchTerm) => {
         }
 
         if (match) {
-            filteredRecipes.push(recipe);
+            filteredRecipes[index] = recipe;
+            index++
         }
     }
 

@@ -44,11 +44,14 @@ fetchData('./data/recipes.json').then(recipes => {
      * selected tags, and advanced search criteria.
      */
     const updateRecipes = () => {
-        let filteredRecipes = [...recipes];
         const mainSearchInput = document.getElementById("global-search").value.trim();
+
+        let filteredRecipes = [...recipes];
         const selectedTags = getSelectedTags();
 
-        filteredRecipes = filterRecipesByMainSearch(filteredRecipes, mainSearchInput);
+        if(mainSearchInput.length >= 3) {
+            filteredRecipes = filterRecipesByMainSearch(filteredRecipes, mainSearchInput);
+        }
 
         filteredRecipes = filterRecipesByAdvancedSearch(
             filteredRecipes,
