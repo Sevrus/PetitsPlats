@@ -6,8 +6,6 @@
  * @returns {Array<Object>} - An array of filtered recipe objects.
  */
 export const filterRecipesByMainSearch = (recipes, searchTerm) => {
-    if (searchTerm.length < 3) return recipes;
-
     return recipes.filter(recipe => {
         const inTitle = recipe["name"].toLowerCase().includes(searchTerm.toLowerCase());
         const inDescription = recipe["description"].toLowerCase().includes(searchTerm.toLowerCase());

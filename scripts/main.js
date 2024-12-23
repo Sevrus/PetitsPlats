@@ -3,7 +3,7 @@ import {filterRecipesByAdvancedSearch, initializeDropdowns, populateDropdownList
 import { generateRecipeCards } from "./views/listOfRecipesView.js";
 import {sanitizedInput, selectedItems, updateErrorMessage} from "./utils/utilities.js";
 import {initializeDropdownsMechanics} from "./utils/dropdown.js";
-import {filterRecipesByMainSearch} from "./prototypes/filterRecipesByMainSearch.js";
+import {filterRecipesByMainSearch} from "./prototypes/filterRecipes.js";
 
 /**
  * Initializes the application by fetching recipe data, setting up event listeners
@@ -48,7 +48,9 @@ fetchData('./data/recipes.json').then(recipes => {
         const mainSearchInput = document.getElementById("global-search").value.trim();
         const selectedTags = getSelectedTags();
 
-        filteredRecipes = filterRecipesByMainSearch(filteredRecipes, mainSearchInput);
+        if(mainSearchInput.length >= 3) {
+            filteredRecipes = filterRecipesByMainSearch(filteredRecipes, mainSearchInput);
+        }
 
         filteredRecipes = filterRecipesByAdvancedSearch(
             filteredRecipes,
