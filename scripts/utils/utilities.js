@@ -8,9 +8,8 @@
  * @returns {string} The sanitized input string containing only letters and spaces.
  */
 export const sanitizedInput = (event) => {
-    let sanitizedInput = event.target.value.replace(/[^a-zA-Z ]/g, "");
-    event.target.value = sanitizedInput;
-    return sanitizedInput;
+    const noHTML = event.target.value.replace(/<[^>]*>/g, '');
+    return noHTML.replace(/[^a-zA-Z ]/g, "");
 };
 
 export const updateErrorMessage = (mainSearchInput, filteredRecipes) => {
