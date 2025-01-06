@@ -10,7 +10,7 @@ export const filterRecipesByMainSearch = (recipes, searchTerm) => {
         const inTitle = recipe["name"].toLowerCase().includes(searchTerm.toLowerCase());
         const inDescription = recipe["description"].toLowerCase().includes(searchTerm.toLowerCase());
 
-        const inIngredients = recipe["ingredients"].some(ingredient =>
+        const inIngredients = recipe.ingredients.some(ingredient =>
             ingredient["ingredient"].toLowerCase().includes(searchTerm.toLowerCase())
         );
 
