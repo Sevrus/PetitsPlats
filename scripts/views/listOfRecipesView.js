@@ -9,7 +9,7 @@ export const generateRecipeCards = (recipes) => {
 
   container.innerHTML = '';
 
-  recipeCountElement.textContent = recipes.length;
+  recipeCountElement.textContent = String(recipes.length);
 
     recipes.forEach((recipe) => {
         const recipeCard = document.createElement("article");
