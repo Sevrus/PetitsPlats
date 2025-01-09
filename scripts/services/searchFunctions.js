@@ -113,8 +113,9 @@ const filterDropdownList = (inputSelector, listSelector) => {
  * @param {string} tagText - The text content of the tag to be added.
  * @param {string} category - The category to which the tag belongs (e.g., ingredients, appliances).
  * @param {function} updateCallback - Callback function to invoke after the tag is added.
+ * @param {Array<Object>} recipes - The array of recipe objects to populate dropdown lists.
  */
-const addTag = (tagText, category, updateCallback) => {
+const addTag = (tagText, category, updateCallback, recipes) => {
     if (!category) {
         console.error("Cannot add tag: category is undefined");
         return;
@@ -139,14 +140,35 @@ const addTag = (tagText, category, updateCallback) => {
     removeIcon.addEventListener('click', () => {
         tag.remove();
 
+        console.log('Before deletion:', [...selectedItems[category]]);
+        selectedItems[category].delete(tagText);
+        console.log('After deletion:', [...selectedItems[category]]);
+
         const relatedSelection = document.querySelector(`.dropdown-selections li[data-value="${tagText}"]`);
         if (relatedSelection) relatedSelection.remove();
 
+        const filteredRecipes = Object.values(selectedItems).some(set => set.size > 0)
+            ? filterRecipesByAdvancedSearch(recipes,
+                [...selectedItems.ingredients],
+                [...selectedItems.appliances],
+                [...selectedItems.utensils])
+            : recipes;
+
+        console.log('Filtered Recipes:', filteredRecipes);
+
+        populateDropdownLists(filteredRecipes, selectedItems);
         updateCallback();
     });
     tag.appendChild(removeIcon);
     tagContainer.appendChild(tag);
 
+    const filteredRecipes = filterRecipesByAdvancedSearch(recipes,
+        [...selectedItems.ingredients],
+        [...selectedItems.appliances],
+        [...selectedItems.utensils]
+    );
+
+    populateDropdownLists(filteredRecipes, selectedItems);
     updateCallback();
 };
 
@@ -179,7 +201,6 @@ export const initializeDropdowns = (recipes, updateCallback) => {
             e.stopPropagation();
 
             const dropdownItem = e.target.closest('.dropdown-item');
-
             const dropdownSection = dropdownItem?.closest('.dropdown-section');
 
             if (!dropdownSection) {
@@ -191,7 +212,7 @@ export const initializeDropdowns = (recipes, updateCallback) => {
 
             handleDropdownItemClick(dropdownItem, dropdownSection, recipes, updateCallback);
 
-            addTag(e.target.textContent, category, updateCallback);
+            addTag(dropdownItem.textContent, category, updateCallback, recipes);
         });
     });
 };
@@ -216,7 +237,14 @@ const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes, updateC
     const itemText = dropdownItem.textContent.trim();
 
     selectedItems[category].add(itemText);
-    populateDropdownLists(recipes, selectedItems);
+    const filteredRecipes = filterRecipesByAdvancedSearch(
+        recipes,
+        [...selectedItems.ingredients],
+        [...selectedItems.appliances],
+        [...selectedItems.utensils]
+    );
+
+    populateDropdownLists(filteredRecipes, selectedItems);
 
     const selectionsList = dropdownSection.querySelector('.dropdown-selections');
     const selectedItem = document.createElement('li');
@@ -234,8 +262,15 @@ const handleDropdownItemClick = (dropdownItem, dropdownSection, recipes, updateC
         if (relatedTag) relatedTag.remove();
 
         selectedItems[category].delete(itemText);
-        populateDropdownLists(recipes, selectedItems);
 
+        const updatedRecipes = Object.values(selectedItems).some(set => set.size > 0)
+            ? filterRecipesByAdvancedSearch(recipes,
+                [...selectedItems.ingredients],
+                [...selectedItems.appliances],
+                [...selectedItems.utensils])
+            : recipes;
+
+        populateDropdownLists(updatedRecipes, selectedItems);
         updateCallback();
     });
 

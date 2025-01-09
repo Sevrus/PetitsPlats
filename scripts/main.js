@@ -63,6 +63,8 @@ fetchData('./data/recipes.json').then(recipes => {
         updateErrorMessage(mainSearchInput, filteredRecipes);
 
         generateRecipeCards(filteredRecipes);
+
+        populateDropdownLists(filteredRecipes, selectedItems);
     };
 
     initializeDropdowns(recipes, updateRecipes);
